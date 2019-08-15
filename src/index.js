@@ -17,7 +17,7 @@ class Repaso extends React.Component{
 	}
 
 	componentWillMount(){
-		axios.get(`http://api.noopschallenge.com/hexbot`)
+		axios.get(`http://api.noopschallenge.com/hexbot?count=5`)
 	      .then(res => {
 	        const data = res.data.colors;
 	        this.setState({colors: data});
