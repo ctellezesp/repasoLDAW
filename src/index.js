@@ -28,7 +28,7 @@ class Repaso extends React.Component{
 	render(){
 		return(
 			<div id="main">
-				<h3>Colores favoritos: </h3>
+				<h3>Colores recomendados del día: </h3>
 				<div id="content">
 					{/*Para valores hardcodeados solo usar color={color}; para la api usar color={color.value} */}
 					{this.state.colors.map((color, key)=> <Card key={key} num={key} color={color.value} />)}
