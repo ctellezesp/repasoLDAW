@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import './style.css';
 import App from './App';
+import axios from 'axios';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
@@ -11,16 +12,27 @@ class Repaso extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			colors: ["#FFFFFF", "#000000", "#555555"]
+			colors: ["#0d47a1", "#00796b", "#ff9100"]
 		}
+	}
+
+	componentWillMount(){
+		axios.get(`http://api.noopschallenge.com/hexbot`)
+	      .then(res => {
+	        const data = res.data.colors;
+	        this.setState({colors: data});
+	        console.log(data);
+	      });
 	}
 
 	render(){
 		return(
 			<div id="main">
-				{this.state.colors.forEach(color => {
-					return <Card color={color} />
-				})}
+				<h3>Colores favoritos: </h3>
+				<div id="content">
+					{/*Para valores hardcodeados solo usar color={color}; para la api usar color={color.value} */}
+					{this.state.colors.map((color, key)=> <Card key={key} num={key} color={color.value} />)}
+				</div>
 			</div>
 
 		);
@@ -30,8 +42,8 @@ class Repaso extends React.Component{
 class Card extends React.Component{
 	render(){
 		return(
-			<div className="card">
-				<h4 className="name-color">Color Disponble: {this.props.color}</h4>			
+			<div className="card" style={{background: this.props.color}}>
+				<h4>Color {this.props.num}: {this.props.color}</h4>			
 			</div>
 		);
 	}
